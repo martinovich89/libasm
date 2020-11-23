@@ -227,6 +227,10 @@ void	ft_read_diff(int buffersize)
 	printf("fd = %i, buffersize = %i\n", fd, buffersize);
 	printf("ft_read : 	|%s|, return = %i\n", buffer1, ret1);
 	printf("read :		|%s|, return = %i\n", buffer2, ret2);
+	if (strcmp(buffer1, buffer2) || ret1 != ret2)
+		printf("ft_read test failure\n");
+	else
+		printf("ft_read test success\n");
 	free(buffer1);
 	free(buffer2);
 }
