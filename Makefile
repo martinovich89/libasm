@@ -20,6 +20,7 @@ SRCS =		ft_strlen.s \
 			ft_strcmp.s \
 			ft_strdup.s \
 			ft_write.s \
+			ft_read.s \
 
 OBJS =		${SRCS:.s=.o}
 
@@ -29,7 +30,7 @@ OBJS =		${SRCS:.s=.o}
 all : ${OBJS}
 			ar rcs ${NAME} ${OBJS} && ranlib ${NAME}
 
-test :
+test : main.c
 			${CC} main.c ${OBJS} -o test
 
 clean :

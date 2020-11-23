@@ -198,6 +198,54 @@ void	ft_write_test(void)
 	printf("\n++++++++++++++++++++++++++++++++\n");
 }
 
+void	ft_read_diff(int buffersize)
+{
+	char	*buffer1;
+	char	*buffer2;
+	int		ret1;
+	int		ret2;
+	int		fd;
+
+	if (!(buffer1 = malloc(sizeof(char) * (buffersize + 1))))
+	{
+		printf("error : couldn't allocate %i BYTES\n", buffersize);
+		exit(1);
+	}
+	bzero(buffer1, buffersize + 1);
+	if (!(buffer2 = malloc(sizeof(char) * (buffersize + 1))))
+	{
+		printf("error : couldn't allocate %i BYTES\n", buffersize);
+		exit(1);
+	}
+	bzero(buffer2, buffersize + 1);
+	fd = open("main.c", O_RDONLY);
+	ret1 = read(fd, buffer1, buffersize);
+	close(fd);
+	fd = open("main.c", O_RDONLY);
+	ret2 = read(fd, buffer2, buffersize);
+	close(fd);
+	printf("fd = %i, buffersize = %i\n", fd, buffersize);
+	printf("ft_read : 	|%s|, return = %i\n", buffer1, ret1);
+	printf("read :		|%s|, return = %i\n", buffer2, ret2);
+	free(buffer1);
+	free(buffer2);
+}
+
+void	ft_read_test(void)
+{
+	int	fd;
+
+	printf("\n --->>> Test 1 <<<--- \n");
+	ft_read_diff(1);
+	printf("\n --->>> Test 2 <<<--- \n");
+	ft_read_diff(100);
+	printf("\n --->>> Test 3 <<<--- \n");
+	ft_read_diff(0);
+	printf("\n --->>> Test 4 <<<--- \n");
+	ft_read_diff(10);
+	printf("\n++++++++++++++++++++++++++++++++\n");
+}
+
 int		main(void)
 {
 	ft_title("ft_strlen");
@@ -210,4 +258,6 @@ int		main(void)
 	ft_strdup_test();
 	ft_title("ft_write");
 	ft_write_test();
+	ft_title("ft_read");
+	ft_read_test();
 }
